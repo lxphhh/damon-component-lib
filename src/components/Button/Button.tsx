@@ -2,20 +2,10 @@ import React from 'react'
 import classNames from 'classnames'
 
 // 大小枚举
-export enum ButtonSize {
-  Large = 'lg',
-  Small = 'sm',
-  Big = 'Bg',
-  Radio = 'rd', // 胶囊模式
-}
+export type ButtonSize = 'lg' | 'sm' | 'radio' | 'bg'
 
 // 类型枚举
-export enum ButtonType {
-  Primary = 'primary',
-  Default = 'default',
-  Danger = 'danger',
-  Link = 'link',
-}
+export type ButtonType = 'primary' | 'default' | 'danger' | 'link'
 
 interface BaseButtonProps {
   className: string // class
@@ -37,10 +27,10 @@ const Button = (props: ButtonProps) => {
   const classes = classNames('btn', className, {
     [`btn-${btnType}`]: btnType,
     [`btn-${size}`]: size,
-    disabled: btnType === ButtonType.Link && disabled, // link时候disabled
+    disabled: btnType === 'link' && disabled, // link时候disabled
   })
   // button 切换 link模式 的时候必须提供href模式
-  if (btnType === ButtonType.Link && href) {
+  if (btnType === 'link' && href) {
     return (
       <a href={href} className={classes} {...restProps}>
         {children}
@@ -59,7 +49,7 @@ const Button = (props: ButtonProps) => {
 // 默认Props
 Button.defaultProps = {
   disabled: false,
-  btnType: ButtonType.Default,
+  btnType: 'default',
 }
 
 export default Button
