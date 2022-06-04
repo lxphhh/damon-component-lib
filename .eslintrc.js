@@ -7,7 +7,7 @@
  * @FilePath: \Bohe\bohe\.eslintrc.js
  */
 module.exports = {
-  extends: ['react-app', 'react-app/jest', 'prettier'],
+  extends: ['react-app', 'react-app/jest', 'prettier', ''],
   rules: {
     'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',

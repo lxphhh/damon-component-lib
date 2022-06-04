@@ -1,6 +1,5 @@
 import React from 'react'
 import classNames from 'classnames'
-import { type } from 'os'
 
 // 大小枚举
 export enum ButtonSize {
