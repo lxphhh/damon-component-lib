@@ -1,10 +1,13 @@
 import React from 'react'
 import classNames from 'classnames'
+import { type } from 'os'
+
 // 大小枚举
 export enum ButtonSize {
   Large = 'lg',
   Small = 'sm',
   Big = 'Bg',
+  Radio = 'rd', // 胶囊模式
 }
 
 // 类型枚举
@@ -23,15 +26,16 @@ interface BaseButtonProps {
   children: React.ReactNode
   href: string
 }
+type NativeButtonProps = React.ButtonHTMLAttributes<HTMLElement>
+type AnchorButtonProps = React.AnchorHTMLAttributes<HTMLElement>
+export type ButtonProps = Partial<BaseButtonProps & NativeButtonProps & AnchorButtonProps>
 
-type Props = Partial<BaseButtonProps>
+const Button = (props: ButtonProps) => {
+  const { className, btnType, disabled, size, children, href, ...restProps } = props
 
-const Button = (props: Props) => {
-  const { btnType, disabled, size, children, href } = props
-
-  // TODO: 根据不同的模式拼接样式 采用库classnames
-  // btn btn-lg btn-primary
-  const classes = classNames('btn', {
+  // 根据不同的模式拼接样式 采用库classnames
+  // btn btn-lg btn-primary className(用户自定义)
+  const classes = classNames('btn', className, {
     [`btn-${btnType}`]: btnType,
     [`btn-${size}`]: size,
     disabled: btnType === ButtonType.Link && disabled, // link时候disabled
@@ -39,13 +43,13 @@ const Button = (props: Props) => {
   // button 切换 link模式 的时候必须提供href模式
   if (btnType === ButtonType.Link && href) {
     return (
-      <a href={href} className={classes}>
+      <a href={href} className={classes} {...restProps}>
         {children}
       </a>
     )
   } else {
     return (
-      <button className={classes} disabled={disabled}>
+      <button className={classes} disabled={disabled} {...restProps}>
         {children}
       </button>
     )
@@ -53,6 +57,7 @@ const Button = (props: Props) => {
   // return <div>Button</div>
 }
 
+// 默认Props
 Button.defaultProps = {
   disabled: false,
   btnType: ButtonType.Default,
