@@ -1,6 +1,7 @@
 import React from 'react'
 import Menu from '../components/Menu/Menu'
 import MenuItem from '../components/Menu/MenuItem'
+import SubMenu from '../components/Menu/SubMenu'
 
 type Props = {}
 
@@ -15,7 +16,10 @@ const MenuTest = (props: Props) => {
       >
         <MenuItem>1</MenuItem>
         <MenuItem disabled>3</MenuItem>
-        <MenuItem>2</MenuItem>
+        <SubMenu title="dropdown">
+          <MenuItem>dropdown1</MenuItem>
+          <MenuItem disabled>dropdown3</MenuItem>
+        </SubMenu>
       </Menu>
       <hr />
       <Menu
@@ -27,7 +31,10 @@ const MenuTest = (props: Props) => {
       >
         <MenuItem>1</MenuItem>
         <MenuItem>2</MenuItem>
-        <MenuItem>3</MenuItem>
+        <SubMenu title="dropdown">
+          <MenuItem>dropdown1</MenuItem>
+          <MenuItem disabled>dropdown3</MenuItem>
+        </SubMenu>
       </Menu>
     </>
   )

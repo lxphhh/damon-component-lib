@@ -17,6 +17,7 @@ export interface BaseMenuProps {
 interface MyMenuContext {
   index: number
   onSelect?: SelectCallback
+  mode?: MenuMode
 }
 
 export type MenuProps = Partial<BaseMenuProps>
@@ -42,6 +43,7 @@ const Menu = (props: MenuProps) => {
   const passedContext: MyMenuContext = {
     index: currentActive ? currentActive : 0,
     onSelect: handleClick,
+    mode,
   }
   // 对子元素类型加以限制
   const renderChirdremInMenuItem = () => {
@@ -49,7 +51,7 @@ const Menu = (props: MenuProps) => {
       // 子元素类型收窄
       const chirdElement = child as React.FunctionComponentElement<BaseMenuItem>
       const { displayName } = chirdElement.type
-      if (displayName === 'MenuItem') {
+      if (displayName === 'MenuItem' || displayName === 'SubMenu') {
         // react给后面的子元素追加属性
         return React.cloneElement(chirdElement, { index })
       } else {
