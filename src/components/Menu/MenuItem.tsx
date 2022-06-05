@@ -20,6 +20,7 @@ const MenuItem = (props: BaseMenuItem) => {
   })
 
   const handleClick = () => {
+    // disable不允许调用
     if (context.onSelect && !disabled) {
       context.onSelect(index)
     }

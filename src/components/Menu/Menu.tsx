@@ -18,7 +18,7 @@ interface MyMenuContext {
   onSelect?: SelectCallback
 }
 
-type MenuProps = Partial<BaseMenuProps>
+export type MenuProps = Partial<BaseMenuProps>
 
 // 创建上下文
 export const MenuContext = createContext<MyMenuContext>({
@@ -43,7 +43,7 @@ const Menu = (props: MenuProps) => {
     onSelect: handleClick,
   }
   return (
-    <ul className={classes} style={style}>
+    <ul className={classes} style={style} data-testid="test-menu">
       <MenuContext.Provider value={passedContext}>{children}</MenuContext.Provider>
     </ul>
   )
