@@ -20,11 +20,9 @@ const testVerProps: MenuProps = {
 const generateMenu = (props: MenuProps) => {
   return (
     <Menu {...props}>
-      <MenuItem index={0}>active</MenuItem>
-      <MenuItem index={1} disabled>
-        disabled
-      </MenuItem>
-      <MenuItem index={2}>xyz</MenuItem>
+      <MenuItem>active</MenuItem>
+      <MenuItem disabled>disabled</MenuItem>
+      <MenuItem>xyz</MenuItem>
     </Menu>
   )
 }
@@ -36,6 +34,7 @@ let wrapper: RenderResult,
 describe('test Meun and MenuItem component', () => {
   beforeEach(() => {
     cleanup()
+    // eslint-disable-next-line testing-library/no-render-in-setup
     wrapper = render(generateMenu(testProps))
     menuElement = screen.getByTestId(/test-menu/i)
     activeElement = screen.getByText('active')
@@ -44,6 +43,7 @@ describe('test Meun and MenuItem component', () => {
   it('should render correct Menu and MenuItem base on default props', () => {
     expect(menuElement).toBeInTheDocument()
     expect(menuElement).toHaveClass('damon-menu test')
+    // eslint-disable-next-line testing-library/no-node-access
     expect(menuElement.getElementsByTagName('li').length).toEqual(3)
     expect(activeElement).toHaveClass('menu-item is-active')
     expect(disabledElement).toHaveClass('menu-item is-disabled')

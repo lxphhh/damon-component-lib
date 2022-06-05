@@ -3,7 +3,7 @@ import classNames from 'classnames'
 import { MenuContext } from './Menu'
 
 export interface BaseMenuItem {
-  index: number
+  index?: number
   disabled?: boolean
   className?: string
   children?: React.ReactNode
@@ -21,7 +21,7 @@ const MenuItem = (props: BaseMenuItem) => {
 
   const handleClick = () => {
     // disable不允许调用
-    if (context.onSelect && !disabled) {
+    if (context.onSelect && !disabled && typeof index === 'number') {
       context.onSelect(index)
     }
   }
@@ -33,4 +33,5 @@ const MenuItem = (props: BaseMenuItem) => {
   )
 }
 
+MenuItem.displayName = 'MenuItem' // 限制
 export default MenuItem

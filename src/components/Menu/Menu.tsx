@@ -1,5 +1,6 @@
 import React, { createContext, useState } from 'react'
 import classNames from 'classnames'
+import { BaseMenuItem } from './MenuItem'
 
 type MenuMode = 'horizontal' | 'vertical'
 type SelectCallback = (selectedIndex: number) => void
@@ -42,9 +43,26 @@ const Menu = (props: MenuProps) => {
     index: currentActive ? currentActive : 0,
     onSelect: handleClick,
   }
+  // 对子元素类型加以限制
+  const renderChirdremInMenuItem = () => {
+    return React.Children.map(children, (child, index) => {
+      // 子元素类型收窄
+      const chirdElement = child as React.FunctionComponentElement<BaseMenuItem>
+      const { displayName } = chirdElement.type
+      if (displayName === 'MenuItem') {
+        // react给后面的子元素追加属性
+        return React.cloneElement(chirdElement, { index })
+      } else {
+        console.error('Warning: Menu has a child which is not a MenuItem component')
+      }
+    })
+  }
+
   return (
     <ul className={classes} style={style} data-testid="test-menu">
-      <MenuContext.Provider value={passedContext}>{children}</MenuContext.Provider>
+      <MenuContext.Provider value={passedContext}>
+        {renderChirdremInMenuItem()}
+      </MenuContext.Provider>
     </ul>
   )
 }
