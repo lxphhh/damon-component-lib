@@ -6,14 +6,14 @@ import MenuItem from './MenuItem'
 
 // 测试Menu
 const testProps: MenuProps = {
-  defaultIndex: 0,
+  defaultIndex: '0',
   onSelect: jest.fn(),
   className: 'test',
 }
 
 // vertical
 const testVerProps: MenuProps = {
-  defaultIndex: 0,
+  defaultIndex: '0',
   mode: 'vertical',
 }
 
@@ -51,17 +51,17 @@ describe('test Meun and MenuItem component', () => {
   it('click items should change active and call the right callback', () => {
     /**
      * 1. 点击第三个元素
-     * 2. 存在is-active 原先不存在is-active
-     * 3. 函数被调用2次,第一次在初始化的时候
+     * "2". 存在is-active 原先不存在is-active
+     * 3. 函数被调用"2"次,第一次在初始化的时候
      */
     const thirdElement = screen.getByText('xyz')
     fireEvent.click(thirdElement)
     expect(thirdElement).toHaveClass('is-active')
     expect(activeElement).not.toHaveClass('is-active')
-    expect(testProps.onSelect).toHaveBeenCalledWith(2)
+    expect(testProps.onSelect).toHaveBeenCalledWith('2')
     fireEvent.click(disabledElement)
     expect(disabledElement).not.toHaveClass('is-active')
-    expect(testProps.onSelect).toHaveBeenCalledWith(2)
+    expect(testProps.onSelect).toHaveBeenCalledWith('2')
   })
   it('test Menu and MenuItem component in vertical mode', () => {
     // 生成垂直模式的

@@ -5,7 +5,7 @@ import { MenuContext } from './Menu'
 import { BaseMenuItem } from './MenuItem'
 
 export interface SubMenuProps {
-  index?: number
+  index?: string
   title: string
   className?: string
   children: React.ReactNode
@@ -13,9 +13,12 @@ export interface SubMenuProps {
 
 const SubMenu = (props: SubMenuProps) => {
   const { index, title, className, children } = props
-  const [menuOpen, setMenuOpen] = useState(false) // 打开
-  const timer = useRef<NodeJS.Timer | null>(null) // 计时器
   const context = useContext(MenuContext)
+  const openedSubMenus = context.defaultOpenSubMenu as Array<string>
+  const isOpen = index && context.mode === 'vertical' ? openedSubMenus.includes(index) : false
+  const [menuOpen, setMenuOpen] = useState(isOpen) // 打开
+  const timer = useRef<NodeJS.Timer | null>(null) // 计时器
+  // 只在索引存在和竖直模式下起作用
   const classes = classNames('menu-item submenu-item', className, {
     'is-active': context.index === index, // 选中
   })
@@ -55,13 +58,13 @@ const SubMenu = (props: SubMenuProps) => {
     const subMenuClasses = classNames('damon-submenu', {
       'menu-opened': menuOpen,
     })
-    const childrenComponent = React.Children.map(children, (child, index) => {
+    const childrenComponent = React.Children.map(children, (child, subIndex) => {
       // 子元素类型收窄
       const chirdElement = child as React.FunctionComponentElement<BaseMenuItem>
       const { displayName } = chirdElement.type
       if (displayName === 'MenuItem') {
         // react给后面的子元素追加属性
-        return React.cloneElement(chirdElement, { index })
+        return React.cloneElement(chirdElement, { index: `${index}-${subIndex}` })
       } else {
         console.error('Warning: Menu has a child which is not a MenuItem component')
       }
