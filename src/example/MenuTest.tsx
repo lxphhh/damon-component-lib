@@ -6,18 +6,30 @@ type Props = {}
 
 const MenuTest = (props: Props) => {
   return (
-    <Menu
-      defaultIndex={0}
-      onSelect={(index) => {
-        console.log(index)
-      }}
-    >
-      <MenuItem index={0}>1</MenuItem>
-      <MenuItem index={1} disabled>
-        3
-      </MenuItem>
-      <MenuItem index={2}>2</MenuItem>
-    </Menu>
+    <>
+      <Menu
+        defaultIndex={0}
+        onSelect={(index) => {
+          console.log(index)
+        }}
+      >
+        <MenuItem>1</MenuItem>
+        <MenuItem disabled>3</MenuItem>
+        <MenuItem>2</MenuItem>
+      </Menu>
+      <hr />
+      <Menu
+        defaultIndex={0}
+        mode="horizontal"
+        onSelect={(index) => {
+          console.log(index)
+        }}
+      >
+        <MenuItem>1</MenuItem>
+        <MenuItem>2</MenuItem>
+        <MenuItem>3</MenuItem>
+      </Menu>
+    </>
   )
 }
 
